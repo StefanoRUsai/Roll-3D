@@ -16,9 +16,10 @@ public class Enemy : MonoBehaviour {
 	void Start(){
 
 		rb = GetComponent<Rigidbody>();
-		hearts.uvRect = new Rect();
 		width = 0.2f * life;
-		hearts.uvRect = new Rect(0.0f, 0.0f, width, 1.0f);
+		hearts.uvRect = hearts.uvRect = new Rect(0.0f, 0.0f, width, 1.0f);
+
+
 
 	}
 
@@ -41,20 +42,26 @@ public class Enemy : MonoBehaviour {
 		/* restituisce true se player ha tag Player */
 		if (player.gameObject.CompareTag ("Player")) {
 
-			UpdateHearts (); // richiamo il metodo creato per il controllo della variabile life e l'aggiornamento dell'immagine
-
 			/*controllo sulla variabile life per vedere se il player è ancora in vita*/
-			if (life == 0) {
+			if (life > 1) {
+
+				UpdateHearts ();
+							
+			}else{
+				life--;
+				hearts.uvRect = hearts.uvRect = new Rect(0.0f, 0.0f, 0.2f *life, 1.0f);
+
 				winText.text = "Hai perso!!!";	
 				player.gameObject.SetActive (false); // controlla se l'oggetto è attivato
-			}
+
 		}
 	}
+}
 		
    public void UpdateHearts() {
 		life--;
-		width = life * 0.2f;
-		hearts.uvRect.Set(0.0f, 0.0f, width, 1.0f);
+		hearts.uvRect = hearts.uvRect = new Rect(0.0f, 0.0f, 0.2f *life, 1.0f);
 		hearts.SetNativeSize ();
 	}
 }
+
